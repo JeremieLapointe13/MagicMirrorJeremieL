@@ -1,0 +1,56 @@
+.weather-container {
+    padding: 5px;
+}
+
+.current-weather {
+    margin-bottom: 20px;
+}
+
+.temperature {
+    font-size: 60px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.description {
+    text-align: center;
+    margin: 5px 0 15px 0;
+}
+
+.details-container {
+    text-align: left;
+}
+
+.details-row {
+    margin: 3px 0;
+}
+
+.forecast-container {
+    margin-top: 15px;
+}
+
+.forecast-table {
+    width: 100%;
+    text-align: center;
+    border-spacing: 8px;
+    border-collapse: separate;
+}
+
+.day {
+    font-size: 14px;
+    padding: 5px;
+}
+
+.max-temp {
+    color: #ff8c00;
+}
+
+.min-temp {
+    color: #add8e6;
+}
+
+.precip {
+    color: #81a8d0;
+    font-size: smaller;
+}
+

@@ -4,7 +4,15 @@
     <title>Radio-Canada | Nouvelles</title>
     <link>https://ici.radio-canada.ca/rss/4159</link>
     <description>Mise à jour à toutes les 15 minutes tous les jours. - Pour usage personnel seulement.</description>
-    <lastBuildDate>Fri, 25 Apr 2025 14:30:02 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 25 Apr 2025 15:05:10 GMT</lastBuildDate>
+
+    <item>
+        <title>Le procès des anciens membres d’Équipe Canada junior avorte; un nouveau jury sera choisi</title>
+        <link>https://ici.radio-canada.ca/nouvelle/2159882/annulation-proces-hockey-canada-junior-london</link>
+        <description>&lt;p&gt;Un autre procès doit s&apos;amorcer aujourd&apos;hui avec la sélection d&apos;un nouveau jury.&lt;/p&gt;</description>
+        <pubDate>2025-04-25 14:22:31</pubDate>
+        <enclosure url="https://images.radio-canada.ca/q_auto,w_635,h_357/v1/ici-info/16x9/dillon-dube-cal-foote-alex-formenton-carter-hart-michael-mcleod-process-hockey-canada-london-20296.png" type="image/png" />
+    </item>
 
     <item>
         <title>Crime organisé : les cartels mexicains ont changé le rapport des forces au Québec</title>
@@ -31,10 +39,18 @@
     </item>
 
     <item>
-        <title>À trois jours du vote, où sont les chefs?</title>
+        <title>Trump et le 51e ﻿État : Carney de nouveau sur la défensive</title>
         <link>https://ici.radio-canada.ca/info/en-direct/1012589/elections-federales-canada-jour-34</link>
-        <description>&lt;p&gt;Carney et Singh continuent de se talonner. Ils sont maintenant en Ontario. Poilievre est rendu dans l&apos;Ouest.&lt;/p&gt;</description>
+        <description>&lt;p&gt;Le chef libéral a encore dû se défendre pour ne pas avoir été transparent à la suite de son appel avec Trump.&lt;/p&gt;</description>
         <pubDate>2025-04-25 11:39:32</pubDate>
+    </item>
+
+    <item>
+        <title>Élections : deux visions économiques s’affrontent pour accroître la productivité</title>
+        <link>https://ici.radio-canada.ca/nouvelle/2159651/productivite-elections-carney-poilievre-economie</link>
+        <description>&lt;p&gt;Les libéraux misent sur l&apos;interventionnisme. Les conservateurs comptent sur la déréglementation.&lt;/p&gt;</description>
+        <pubDate>2025-04-25 09:39:57</pubDate>
+        <enclosure url="https://images.radio-canada.ca/q_auto,w_635,h_357/v1/ici-info/16x9/pierre-poilievre-mark-carney-debat.JPG" type="image/jpeg" />
     </item>
 
     <item>
@@ -67,22 +83,6 @@
         <description>&lt;p&gt;Dans une campagne à l&apos;ombre de Donald Trump, beaucoup de sujets ont eu du mal à se trouver une place.&lt;/p&gt;</description>
         <pubDate>2025-04-25 08:00:00</pubDate>
         <enclosure url="https://images.radio-canada.ca/q_auto,w_635,h_357/v1/ici-info/16x9/debat-anglais-campagne-elections.JPG" type="image/jpeg" />
-    </item>
-
-    <item>
-        <title>De Bali à Berlin, ces Canadiens qui votent de l’étranger aux élections fédérales</title>
-        <link>https://ici.radio-canada.ca/nouvelle/2159747/canadiens-etranger-votes-elections-federales-</link>
-        <description>&lt;p&gt;« Le seul endroit où j’ai le droit de parole, c’est le Canada », explique un électeur. &lt;/p&gt;</description>
-        <pubDate>2025-04-25 08:00:00</pubDate>
-        <enclosure url="https://images.radio-canada.ca/q_auto,w_635,h_357/v1/ici-info/16x9/nicolas-roulier-florence-fontaine-jason-campbell.jpg" type="image/jpeg" />
-    </item>
-
-    <item>
-        <title>Trump ordonne une enquête sur une importante plateforme de financement des démocrates</title>
-        <link>https://ici.radio-canada.ca/nouvelle/2159733/trump-enquete-actblue-financement-democrates</link>
-        <description>&lt;p&gt;Le camp démocrate dénonce une « attaque contre la démocratie ».&lt;/p&gt;</description>
-        <pubDate>2025-04-25 02:24:42</pubDate>
-        <enclosure url="https://images.radio-canada.ca/q_auto,w_635,h_357/v1/ici-info/16x9/donald-trump-etats-unis-decrets.JPG" type="image/jpeg" />
     </item>
 </channel>
 </rss>
