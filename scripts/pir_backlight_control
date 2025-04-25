@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+import RPi.GPIO as GPIO
+import time
+import os
+import subprocess
+
+# Configuration
+PIR_PIN = 4
+DELAY = 30  # secondes
+SCREEN_ON = True
+
+# Configuration GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(PIR_PIN, GPIO.IN)
+
+def control_monitor(turn_on):
+    """Contrôle l'écran en manipulant le rétro-éclairage"""
+    try:
+        if turn_on:
+            # Essayer différentes méthodes pour allumer l'écran
+            try:
+                # Méthode 1: Contrôle de la luminosité via /sys
+                os.system("echo 255 > /sys/class/backlight/*/brightness")
+            except:
+                pass
+            
+            print("Écran allumé via contrôle de luminosité")
+        else:
+            # Essayer différentes méthodes pour éteindre l'écran
+            try:
+                # Méthode 1: Contrôle de la luminosité via /sys
+                os.system("echo 0 > /sys/class/backlight/*/brightness")
+            except:
+                pass
+            
+            print("Écran éteint via contrôle de luminosité")
+        return True
+    except Exception as e:
+        print(f"Erreur lors du contrôle de l'écran: {e}")
+        return False
+
+def main():
+    global SCREEN_ON
+    print("Script de contrôle PIR via luminosité démarré")
+    
+    try:
+        last_motion = time.time()
+        
+        while True:
+            # Vérifier le mouvement
+            if GPIO.input(PIR_PIN):
+                print("Mouvement détecté")
+                last_motion = time.time()
+                
+                if not SCREEN_ON:
+                    success = control_monitor(True)
+                    if success:
+                        SCREEN_ON = True
+            
+            # Vérifier le délai d'inactivité
+            current_time = time.time()
+            elapsed = current_time - last_motion
+            
+            if SCREEN_ON and elapsed > DELAY:
+                print(f"Aucun mouvement depuis {DELAY} secondes.")
+                success = control_monitor(False)
+                if success:
+                    SCREEN_ON = False
+            
+            # Attendre un peu pour économiser le CPU
+            time.sleep(1)
+    
+    except KeyboardInterrupt:
+        print("Programme arrêté")
+    finally:
+        GPIO.cleanup()
+        # S'assurer que l'écran est allumé à la sortie
+        control_monitor(True)
+
+if __name__ == "__main__":
+    main()
