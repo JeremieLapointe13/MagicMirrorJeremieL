@@ -6,7 +6,7 @@
 Module.register("MMM-PIR-Simple", {
     defaults: {
         checkInterval: 1, // en secondes
-        powerSavingDelay: 30 // en secondes
+        powerSavingDelay: 10 // en secondes
     },
 
     start: function() {
