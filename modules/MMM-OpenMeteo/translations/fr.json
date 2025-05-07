@@ -5,5 +5,12 @@
   "WIND": "Vent",
   "PRECIPITATION": "Précip.",
   "SUNRISE": "Lever",
-  "SUNSET": "Coucher"
+  "SUNSET": "Coucher",
+  "UV_INDEX": "Indice UV",
+  "PRESSURE": "Pression",
+  "VISIBILITY": "Visibilité",
+  "DEW_POINT": "Point de rosée",
+  "TODAY": "Aujourd'hui",
+  "TOMORROW": "Demain",
+  "WEEK": "Semaine"
 }

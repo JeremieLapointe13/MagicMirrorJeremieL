@@ -74,26 +74,27 @@ var config = {
 				}
 			}
 		},
-		{
-			module: "MMM-OpenMeteo",
-			position: "top_right",
-			header: "Météo",
-			config: {
-				latitude: 47.8266,
-				longitude: -69.5348,
-				locationName: "Rivière-du-Loup",
-				updateInterval: 1800000,
-				forecastDays: 5,
-				showCurrent: true,
-				showForecast: true,
-				showFeelsLike: true,
-				showHumidity: true,
-				showWindSpeed: true,
-				showPrecipitationAmount: true,
-				showSunTimes: true
-			}
-		},
-		{
+{
+    module: "MMM-OpenMeteo",
+    position: "top_right",
+    header: "Météo",
+    config: {
+        latitude: 47.8266,
+        longitude: -69.5348,
+        updateInterval: 1800000,     // 30 minutes
+        showCurrent: true,
+        showForecast: true,
+        showWindInfo: true,
+        showSunTimes: true,
+        showPrecipitation: true,
+        forecastDays: 4,             // Réduit de 5 à 4 jours
+        language: "fr",
+        units: "metric",
+        colored: true,
+        animateIcons: true
+    }
+},
+    		{
 			module: "newsfeed",
 			position: "bottom_bar",
 			config: {

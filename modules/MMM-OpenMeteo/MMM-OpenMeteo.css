@@ -1,56 +1,121 @@
-.weather-container {
-    padding: 5px;
+/* MMM-OpenMeteo CSS Ultra-Minimaliste avec marge à droite */
+.MMM-OpenMeteo {
+  width: 230px; /* Largeur réduite */
+  max-width: 100%;
+  margin: 0 auto;
 }
 
+.weather-container {
+  padding: 0;
+}
+
+/* Bloc de météo actuelle - Mise en page horizontale */
 .current-weather {
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Bloc pour icône et température */
+.main-weather-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+/* Grande icône météo et température */
+.current-icon {
+  font-size: 3.2em;
+  margin-right: 10px;
 }
 
 .temperature {
-    font-size: 60px;
-    font-weight: 300;
-    text-align: center;
+  font-size: 4.5em;
+  font-weight: 300;
+  line-height: 1em;
 }
 
+/* Description météo plus visible */
 .description {
-    text-align: center;
-    margin: 5px 0 15px 0;
+  font-size: 1.2em;
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
 }
 
-.details-container {
-    text-align: left;
+/* Température ressentie en petit */
+.feels-like {
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin: 5px 0 0 0;
 }
 
-.details-row {
-    margin: 3px 0;
-}
-
+/* Section prévisions plus compacte */
 .forecast-container {
-    margin-top: 15px;
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .forecast-table {
-    width: 100%;
-    text-align: center;
-    border-spacing: 8px;
-    border-collapse: separate;
+  width: 90%; /* Réduit à 90% pour ajouter de l'espace à droite */
+  text-align: center;
+  border-spacing: 0;
+  border-collapse: separate;
+  margin: 0 auto; /* Centre le tableau */
+}
+
+.forecast-icon {
+  font-size: 0.9em;
+  padding: 2px 0;
 }
 
 .day {
-    font-size: 14px;
-    padding: 5px;
+  font-size: 0.75em;
+  font-weight: bold;
+  padding: 2px 0;
+  opacity: 0.9;
+  text-transform: uppercase;
 }
 
 .max-temp {
-    color: #ff8c00;
+  color: #ff8c00;
+  font-weight: bold;
+  font-size: 0.85em;
+}
+
+.temp-separator {
+  font-size: 0.7em;
+  margin: 0 2px;
+  opacity: 0.7;
 }
 
 .min-temp {
-    color: #add8e6;
+  color: #add8e6;
+  opacity: 0.9;
+  font-size: 0.8em;
 }
 
-.precip {
-    color: #81a8d0;
-    font-size: smaller;
+/* Animation de fondu */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
+.fade-in {
+  animation: fadeIn 1s;
+}
+
+/* Media queries pour ajuster selon la taille */
+@media screen and (max-width: 280px) {
+  .current-icon {
+    font-size: 2.5em;
+  }
+  
+  .temperature {
+    font-size: 3.5em;
+  }
+}

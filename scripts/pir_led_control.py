@@ -14,7 +14,7 @@ PIXEL_PIN_2 = board.D21  # Deuxième bande LEDs NeoPixel sur GPIO22
 NUM_PIXELS = 16       # Nombre de LEDs par bande
 
 # Configuration pour l'interface avec MagicMirror
-DELAY = 30           # Délai avant mise en veille (secondes)
+DELAY = 10           # Délai avant mise en veille (secondes)
 STATUS_FILE = "/tmp/pir_status.json"
 
 # Configuration du GPIO

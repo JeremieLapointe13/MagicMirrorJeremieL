@@ -5,13 +5,26 @@ Module.register("MMM-OpenMeteo", {
         updateInterval: 30 * 60 * 1000, // 30 minutes
         showCurrent: true,
         showForecast: true,
-        showWindInfo: true,
-        forecastDays: 5,
-        language: "fr"
+        showWindInfo: false,      // Désactivé
+        showSunTimes: false,      // Désactivé
+        showUVIndex: false,       // Désactivé
+        showPrecipitation: false, // Désactivé
+        forecastDays: 4,          // 4 jours au total (aujourd'hui + 3)
+        language: "fr",
+        units: "metric",
+        colored: true,
+        animateIcons: true
     },
 
     getStyles: function() {
-        return ["font-awesome.css", "MMM-OpenMeteo.css"];
+        return ["font-awesome.css", "weather-icons.css", "MMM-OpenMeteo.css"];
+    },
+
+    getTranslations: function() {
+        return {
+            en: "translations/en.json",
+            fr: "translations/fr.json"
+        };
     },
 
     start: function() {
@@ -23,9 +36,10 @@ Module.register("MMM-OpenMeteo", {
 
     getDom: function() {
         var wrapper = document.createElement("div");
-        
+        wrapper.className = "MMM-OpenMeteo";
+
         if (!this.loaded) {
-            wrapper.innerHTML = "Chargement de la météo...";
+            wrapper.innerHTML = this.translate("LOADING");
             wrapper.className = "dimmed light small";
             return wrapper;
         }
@@ -39,114 +53,105 @@ Module.register("MMM-OpenMeteo", {
         var mainContainer = document.createElement("div");
         mainContainer.className = "weather-container";
 
-        // Météo actuelle
+        // Météo actuelle - version ultra-minimaliste
         if (this.config.showCurrent && this.weatherData.current) {
             var currentWeather = document.createElement("div");
-            currentWeather.className = "current-weather";
+            currentWeather.className = "current-weather fade-in";
+
+            // Bloc principal: icône et température côte à côte
+            var weatherCode = this.weatherData.current.weather_code;
+            var iconClass = this.getWeatherIconClass(weatherCode, this.isDayTime());
+            
+            var mainWeatherInfo = document.createElement("div");
+            mainWeatherInfo.className = "main-weather-info";
+            
+            // Icône météo
+            var iconDiv = document.createElement("span");
+            iconDiv.className = "current-icon bright";
+            iconDiv.innerHTML = '<i class="' + iconClass + '"></i>';
+            mainWeatherInfo.appendChild(iconDiv);
 
             // Température actuelle
-            var tempDiv = document.createElement("div");
-            tempDiv.className = "temperature large light";
-            tempDiv.innerHTML = Math.round(this.weatherData.current.temperature_2m) + "°C";
-            currentWeather.appendChild(tempDiv);
+            var tempDiv = document.createElement("span");
+            tempDiv.className = "temperature bright";
+            tempDiv.innerHTML = Math.round(this.weatherData.current.temperature_2m) + "°";
+            mainWeatherInfo.appendChild(tempDiv);
+            
+            currentWeather.appendChild(mainWeatherInfo);
 
             // Description météo
-            var weatherCode = this.weatherData.current.weather_code;
             var descDiv = document.createElement("div");
-            descDiv.className = "description small bright";
+            descDiv.className = "description normal";
             descDiv.innerHTML = this.getWeatherDescription(weatherCode);
             currentWeather.appendChild(descDiv);
-
-            // Informations supplémentaires
-            var detailsDiv = document.createElement("div");
-            detailsDiv.className = "details-container small";
 
             // Température ressentie
             if (this.weatherData.current.apparent_temperature !== undefined) {
                 var feelsLikeDiv = document.createElement("div");
-                feelsLikeDiv.className = "details-row";
-                feelsLikeDiv.innerHTML = "Ressenti: " + Math.round(this.weatherData.current.apparent_temperature) + "°C";
-                detailsDiv.appendChild(feelsLikeDiv);
+                feelsLikeDiv.className = "feels-like";
+                feelsLikeDiv.innerHTML = "Ressenti: " +
+                    Math.round(this.weatherData.current.apparent_temperature) + "°";
+                currentWeather.appendChild(feelsLikeDiv);
             }
 
-            // Humidité
-            if (this.weatherData.current.relative_humidity_2m !== undefined) {
-                var humidityDiv = document.createElement("div");
-                humidityDiv.className = "details-row";
-                humidityDiv.innerHTML = "Humidité: " + this.weatherData.current.relative_humidity_2m + "%";
-                detailsDiv.appendChild(humidityDiv);
-            }
-
-            // Vent
-            if (this.config.showWindInfo && this.weatherData.current.wind_speed_10m !== undefined) {
-                var windDiv = document.createElement("div");
-                windDiv.className = "details-row";
-                var windDirection = this.getWindDirection(this.weatherData.current.wind_direction_10m);
-                windDiv.innerHTML = "Vent: " + Math.round(this.weatherData.current.wind_speed_10m) + " km/h " + windDirection;
-                detailsDiv.appendChild(windDiv);
-            }
-
-            currentWeather.appendChild(detailsDiv);
             mainContainer.appendChild(currentWeather);
         }
 
-        // Prévisions
+        // Prévisions - 4 jours (aujourd'hui + 3 autres)
         if (this.config.showForecast && this.weatherData.daily) {
             var forecastContainer = document.createElement("div");
-            forecastContainer.className = "forecast-container";
+            forecastContainer.className = "forecast-container fade-in";
 
             var forecastTable = document.createElement("table");
             forecastTable.className = "forecast-table";
 
+            // Nous voulons 4 jours au total (aujourd'hui + 3 autres jours)
+            var daysToShow = 4;
+
             // En-têtes (jours)
             var headerRow = document.createElement("tr");
-            for (var i = 0; i < this.config.forecastDays; i++) {
+            for (var i = 0; i < daysToShow; i++) {
                 if (this.weatherData.daily.time[i]) {
                     var dayCell = document.createElement("td");
                     dayCell.className = "day";
                     var date = new Date(this.weatherData.daily.time[i]);
-                    dayCell.innerHTML = this.getDayName(date.getDay());
+                    // Pour aujourd'hui, afficher "AUJ" au lieu du jour
+                    var dayName = (i === 0) ? "AUJ" : this.getDayName(date.getDay());
+                    dayCell.innerHTML = dayName;
                     headerRow.appendChild(dayCell);
                 }
             }
             forecastTable.appendChild(headerRow);
 
-            // Températures max
-            var maxRow = document.createElement("tr");
-            for (var i = 0; i < this.config.forecastDays; i++) {
+            // Icônes météo
+            var iconRow = document.createElement("tr");
+            for (var i = 0; i < daysToShow; i++) {
+                if (this.weatherData.daily.weather_code && this.weatherData.daily.weather_code[i] !== undefined) {
+                    var iconCell = document.createElement("td");
+                    iconCell.className = "forecast-icon";
+                    var weatherCode = this.weatherData.daily.weather_code[i];
+                    var iconClass = this.getWeatherIconClass(weatherCode, true);
+                    iconCell.innerHTML = '<i class="' + iconClass + '"></i>';
+                    iconRow.appendChild(iconCell);
+                }
+            }
+            forecastTable.appendChild(iconRow);
+
+            // Températures max/min
+            var tempRow = document.createElement("tr");
+            for (var i = 0; i < daysToShow; i++) {
                 if (this.weatherData.daily.temperature_2m_max[i] !== undefined) {
-                    var maxCell = document.createElement("td");
-                    maxCell.className = "bright max-temp";
-                    maxCell.innerHTML = Math.round(this.weatherData.daily.temperature_2m_max[i]) + "°";
-                    maxRow.appendChild(maxCell);
+                    var tempCell = document.createElement("td");
+                    var maxTemp = Math.round(this.weatherData.daily.temperature_2m_max[i]);
+                    var minTemp = Math.round(this.weatherData.daily.temperature_2m_min[i]);
+                    tempCell.innerHTML = 
+                        '<span class="max-temp">' + maxTemp + '°</span>' +
+                        '<span class="temp-separator">/</span>' +
+                        '<span class="min-temp">' + minTemp + '°</span>';
+                    tempRow.appendChild(tempCell);
                 }
             }
-            forecastTable.appendChild(maxRow);
-
-            // Températures min
-            var minRow = document.createElement("tr");
-            for (var i = 0; i < this.config.forecastDays; i++) {
-                if (this.weatherData.daily.temperature_2m_min[i] !== undefined) {
-                    var minCell = document.createElement("td");
-                    minCell.className = "min-temp";
-                    minCell.innerHTML = Math.round(this.weatherData.daily.temperature_2m_min[i]) + "°";
-                    minRow.appendChild(minCell);
-                }
-            }
-            forecastTable.appendChild(minRow);
-
-            // Précipitations
-            var precipRow = document.createElement("tr");
-            for (var i = 0; i < this.config.forecastDays; i++) {
-                if (this.weatherData.daily.precipitation_sum[i] !== undefined) {
-                    var precipCell = document.createElement("td");
-                    precipCell.className = "precip";
-                    precipCell.innerHTML = this.weatherData.daily.precipitation_sum[i] > 0 ? 
-                        this.weatherData.daily.precipitation_sum[i] + " mm" : "";
-                    precipRow.appendChild(precipCell);
-                }
-            }
-            forecastTable.appendChild(precipRow);
+            forecastTable.appendChild(tempRow);
 
             forecastContainer.appendChild(forecastTable);
             mainContainer.appendChild(forecastContainer);
@@ -225,20 +230,71 @@ Module.register("MMM-OpenMeteo", {
             96: "Orage avec grêle légère",
             99: "Orage avec grêle forte"
         };
-        
+
         return descriptions[code] || "Météo inconnue";
     },
 
-    getWindDirection: function(degrees) {
-        if (degrees === undefined) return "";
-        
-        const directions = ["N", "NE", "E", "SE", "S", "SO", "O", "NO"];
-        const index = Math.round(degrees / 45) % 8;
-        return directions[index];
+    getWeatherIconClass: function(code, isDay) {
+        // Mappages des codes météo WMO aux classes d'icônes weather-icons
+        const iconMappings = {
+            0: isDay ? "wi wi-day-sunny" : "wi wi-night-clear",
+            1: isDay ? "wi wi-day-sunny-overcast" : "wi wi-night-alt-partly-cloudy",
+            2: isDay ? "wi wi-day-cloudy" : "wi wi-night-alt-cloudy",
+            3: "wi wi-cloudy",
+            45: "wi wi-fog",
+            48: "wi wi-fog",
+            51: isDay ? "wi wi-day-sprinkle" : "wi wi-night-alt-sprinkle",
+            53: isDay ? "wi wi-day-sprinkle" : "wi wi-night-alt-sprinkle",
+            55: isDay ? "wi wi-day-rain" : "wi wi-night-alt-rain",
+            56: isDay ? "wi wi-day-sleet" : "wi wi-night-alt-sleet",
+            57: isDay ? "wi wi-day-sleet" : "wi wi-night-alt-sleet",
+            61: isDay ? "wi wi-day-rain" : "wi wi-night-alt-rain",
+            63: isDay ? "wi wi-day-rain" : "wi wi-night-alt-rain",
+            65: isDay ? "wi wi-day-rain" : "wi wi-night-alt-rain",
+            66: isDay ? "wi wi-day-sleet" : "wi wi-night-alt-sleet",
+            67: isDay ? "wi wi-day-sleet" : "wi wi-night-alt-sleet",
+            71: isDay ? "wi wi-day-snow" : "wi wi-night-alt-snow",
+            73: isDay ? "wi wi-day-snow" : "wi wi-night-alt-snow",
+            75: isDay ? "wi wi-day-snow" : "wi wi-night-alt-snow",
+            77: isDay ? "wi wi-day-snow" : "wi wi-night-alt-snow",
+            80: isDay ? "wi wi-day-showers" : "wi wi-night-alt-showers",
+            81: isDay ? "wi wi-day-showers" : "wi wi-night-alt-showers",
+            82: isDay ? "wi wi-day-rain" : "wi wi-night-alt-rain",
+            85: isDay ? "wi wi-day-snow" : "wi wi-night-alt-snow",
+            86: isDay ? "wi wi-day-snow" : "wi wi-night-alt-snow",
+            95: isDay ? "wi wi-day-thunderstorm" : "wi wi-night-alt-thunderstorm",
+            96: isDay ? "wi wi-day-thunderstorm" : "wi wi-night-alt-thunderstorm",
+            99: isDay ? "wi wi-day-thunderstorm" : "wi wi-night-alt-thunderstorm"
+        };
+
+        return iconMappings[code] || (isDay ? "wi wi-day-cloudy" : "wi wi-night-alt-cloudy");
+    },
+
+    getWindIcon: function(degrees) {
+        return '<i class="wi wi-wind towards-' + Math.round(degrees) + '-deg"></i>';
+    },
+
+    isDayTime: function() {
+        if (!this.weatherData || !this.weatherData.daily ||
+            !this.weatherData.daily.sunrise || !this.weatherData.daily.sunset) {
+            return true; // Par défaut, considérer qu'il fait jour
+        }
+
+        const now = new Date();
+        const sunrise = new Date(this.weatherData.daily.sunrise[0]);
+        const sunset = new Date(this.weatherData.daily.sunset[0]);
+
+        return now >= sunrise && now <= sunset;
     },
 
     getDayName: function(day) {
-        const days = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+        const days = ["DIM", "LUN", "MAR", "MER", "JEU", "VEN", "SAM"];
         return days[day];
+    },
+
+    formatTime: function(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        return hours + ":" + (minutes < 10 ? "0" + minutes : minutes);
     }
 });
