@@ -1,9 +1,9 @@
 /* CSS personnalisé pour MagicMirror */
 
 body {
-  margin: 10px;
+  margin: 10px 30px 10px 30px; /* Haut, Droite, Bas, Gauche */
   height: calc(100% - 20px);
-  width: calc(100% - 20px);
+  width: calc(100% - 60px); /* Réduction de 60px au total (30px de chaque côté) */
   background: #000;
   color: #fff;
   font-family: "Roboto Condensed", sans-serif;
@@ -33,16 +33,114 @@ header {
   bottom: 20px;
 }
 
-.compliments {
-  font-size: 40px;
-  text-shadow: 0 0 8px #000;
+/* Styles personnalisés pour l'horloge au centre */
+.region.middle.center .module.clock .time {
+  font-size: 5em; /* Horloge très grande */
+  line-height: 1em;
+  margin-bottom: 10px;
+}
+
+.region.middle.center .module.clock .date {
+  font-size: 1.5em; /* Date plus grande qu'avant */
+  line-height: 1.2em;
+  margin-top: 10px;
+}
+
+/* Centrer correctement l'horloge */
+.region.middle.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: auto;
+}
+
+/* Ajustements spécifiques pour le module météo */
+.MMM-OpenMeteo {
+  width: 220px !important;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Aligner la description et le ressenti à droite */
+.description {
+  font-size: 1.1em; /* Réduit légèrement */
+  font-weight: 400;
+  margin: 0;
+  text-align: right !important;
+}
+
+.feels-like {
+  font-size: 0.85em; /* Réduit légèrement */
+  opacity: 0.8;
+  margin: 5px 0 0 0;
+  text-align: right !important;
+}
+
+/* Réorganiser le layout pour la météo actuelle */
+.current-weather {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end !important;
+  margin-bottom: 10px;
+}
+
+/* Assurer que les caractères spéciaux comme ° s'affichent correctement */
+.temperature {
+  font-size: 3.7em; /* Température réduite */
+  letter-spacing: -1px; /* Réduit l'espacement entre les caractères */
 }
 
 .weather .large {
-  font-size: 65px;
+  font-size: 52px; /* Réduit davantage */
 }
 
 .weather .wi {
-  font-size: 80%;
-  line-height: 65px;
+  font-size: 72%;
+  line-height: 52px;
+}
+
+/* Réduire l'espace des prévisions */
+.forecast-container {
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.forecast-table {
+  width: 96%; /* Légèrement réduit pour s'assurer que tout entre */
+  margin: 0 0 0 auto; /* Aligné à droite */
+  font-size: 0.9em; /* Réduire la taille générale du texte des prévisions */
+}
+
+.day {
+  font-size: 0.7em; /* Réduit de 0.75em à 0.7em */
+  font-weight: bold;
+  padding: 2px 0;
+  opacity: 0.9;
+  text-transform: uppercase;
+}
+
+/* Garder les couleurs pour max/min temp */
+.max-temp {
+  color: #ff8c00;
+  font-weight: bold;
+  font-size: 0.8em; /* Réduit de 0.85em à 0.8em */
+}
+
+.temp-separator {
+  font-size: 0.65em; /* Réduit de 0.7em à 0.65em */
+  margin: 0 2px;
+  opacity: 0.7;
+}
+
+.min-temp {
+  color: #add8e6;
+  opacity: 0.9;
+  font-size: 0.75em; /* Réduit de 0.8em à 0.75em */
+}
+
+/* Icônes de prévision plus petites */
+.forecast-icon {
+  font-size: 0.8em; /* Réduit de 0.9em à 0.8em */
+  padding: 2px 0;
 }

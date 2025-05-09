@@ -1,6 +1,6 @@
 /* MMM-OpenMeteo CSS Ultra-Minimaliste avec marge à droite */
 .MMM-OpenMeteo {
-  width: 230px; /* Largeur réduite */
+  width: 220px;
   max-width: 100%;
   margin: 0 auto;
 }
@@ -9,11 +9,11 @@
   padding: 0;
 }
 
-/* Bloc de météo actuelle - Mise en page horizontale */
+/* Bloc de météo actuelle aligné à droite */
 .current-weather {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   margin-bottom: 10px;
 }
 
@@ -21,36 +21,38 @@
 .main-weather-info {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   width: 100%;
   margin-bottom: 5px;
 }
 
 /* Grande icône météo et température */
 .current-icon {
-  font-size: 3.2em;
-  margin-right: 10px;
+  font-size: 2.9em; /* Légèrement réduit */
+  margin-right: 7px;
 }
 
 .temperature {
-  font-size: 4.5em;
+  font-size: 4em;
   font-weight: 300;
   line-height: 1em;
+  letter-spacing: -1px; /* Réduire l'espacement entre les caractères */
 }
 
 /* Description météo plus visible */
 .description {
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: 400;
   margin: 0;
-  text-align: center;
+  text-align: right;
 }
 
 /* Température ressentie en petit */
 .feels-like {
-  font-size: 0.9em;
+  font-size: 0.85em;
   opacity: 0.8;
   margin: 5px 0 0 0;
+  text-align: right;
 }
 
 /* Section prévisions plus compacte */
@@ -61,52 +63,278 @@
 }
 
 .forecast-table {
-  width: 90%; /* Réduit à 90% pour ajouter de l'espace à droite */
+  width: 96%;
   text-align: center;
   border-spacing: 0;
   border-collapse: separate;
-  margin: 0 auto; /* Centre le tableau */
-}
-
-.forecast-icon {
+  margin: 0 0 0 auto;
   font-size: 0.9em;
-  padding: 2px 0;
 }
 
+/* Jours en plus petit */
 .day {
-  font-size: 0.75em;
+  font-size: 0.7em;
   font-weight: bold;
   padding: 2px 0;
   opacity: 0.9;
   text-transform: uppercase;
 }
 
+/* Conserver les couleurs pour les températures */
 .max-temp {
-  color: #ff8c00;
+  color: #ff8c00; /* Orange pour les max */
   font-weight: bold;
-  font-size: 0.85em;
+  font-size: 0.8em;
 }
 
 .temp-separator {
-  font-size: 0.7em;
+  font-size: 0.65em;
   margin: 0 2px;
   opacity: 0.7;
 }
 
 .min-temp {
-  color: #add8e6;
+  color: #add8e6; /* Bleu clair pour les min */
   opacity: 0.9;
+  font-size: 0.75em;
+}
+
+/* Icônes de prévision plus petites */
+.forecast-icon {
+  font-size: 0.8em;
+  padding: 2px 0;
+}
+
+/* Media queries pour ajuster selon la taille */
+@media screen and (max-width: 280px) {
+  .current-icon {
+    font-size: 2.5em;
+  }
+  
+  .temperature {
+    font-size: 3.5em;
+  }
+}/* MMM-OpenMeteo CSS Ultra-Minimaliste avec marge à droite */
+.MMM-OpenMeteo {
+  width: 220px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.weather-container {
+  padding: 0;
+}
+
+/* Bloc de météo actuelle aligné à droite */
+.current-weather {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+/* Bloc pour icône et température */
+.main-weather-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+/* Grande icône météo et température */
+.current-icon {
+  font-size: 2.9em; /* Légèrement réduit */
+  margin-right: 7px;
+}
+
+.temperature {
+  font-size: 4em;
+  font-weight: 300;
+  line-height: 1em;
+  letter-spacing: -1px; /* Réduire l'espacement entre les caractères */
+}
+
+/* Description météo plus visible */
+.description {
+  font-size: 1.1em;
+  font-weight: 400;
+  margin: 0;
+  text-align: right;
+}
+
+/* Température ressentie en petit */
+.feels-like {
+  font-size: 0.85em;
+  opacity: 0.8;
+  margin: 5px 0 0 0;
+  text-align: right;
+}
+
+/* Section prévisions plus compacte */
+.forecast-container {
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.forecast-table {
+  width: 96%;
+  text-align: center;
+  border-spacing: 0;
+  border-collapse: separate;
+  margin: 0 0 0 auto;
+  font-size: 0.9em;
+}
+
+/* Jours en plus petit */
+.day {
+  font-size: 0.7em;
+  font-weight: bold;
+  padding: 2px 0;
+  opacity: 0.9;
+  text-transform: uppercase;
+}
+
+/* Conserver les couleurs pour les températures */
+.max-temp {
+  color: #ff8c00; /* Orange pour les max */
+  font-weight: bold;
   font-size: 0.8em;
 }
 
-/* Animation de fondu */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.temp-separator {
+  font-size: 0.65em;
+  margin: 0 2px;
+  opacity: 0.7;
 }
 
-.fade-in {
-  animation: fadeIn 1s;
+.min-temp {
+  color: #add8e6; /* Bleu clair pour les min */
+  opacity: 0.9;
+  font-size: 0.75em;
+}
+
+/* Icônes de prévision plus petites */
+.forecast-icon {
+  font-size: 0.8em;
+  padding: 2px 0;
+}
+
+/* Media queries pour ajuster selon la taille */
+@media screen and (max-width: 280px) {
+  .current-icon {
+    font-size: 2.5em;
+  }
+  
+  .temperature {
+    font-size: 3.5em;
+  }
+}/* MMM-OpenMeteo CSS Ultra-Minimaliste avec marge à droite */
+.MMM-OpenMeteo {
+  width: 220px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.weather-container {
+  padding: 0;
+}
+
+/* Bloc de météo actuelle aligné à droite */
+.current-weather {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+/* Bloc pour icône et température */
+.main-weather-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+/* Grande icône météo et température */
+.current-icon {
+  font-size: 2.9em; /* Légèrement réduit */
+  margin-right: 7px;
+}
+
+.temperature {
+  font-size: 4em;
+  font-weight: 300;
+  line-height: 1em;
+  letter-spacing: -1px; /* Réduire l'espacement entre les caractères */
+}
+
+/* Description météo plus visible */
+.description {
+  font-size: 1.1em;
+  font-weight: 400;
+  margin: 0;
+  text-align: right;
+}
+
+/* Température ressentie en petit */
+.feels-like {
+  font-size: 0.85em;
+  opacity: 0.8;
+  margin: 5px 0 0 0;
+  text-align: right;
+}
+
+/* Section prévisions plus compacte */
+.forecast-container {
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.forecast-table {
+  width: 96%;
+  text-align: center;
+  border-spacing: 0;
+  border-collapse: separate;
+  margin: 0 0 0 auto;
+  font-size: 0.9em;
+}
+
+/* Jours en plus petit */
+.day {
+  font-size: 0.7em;
+  font-weight: bold;
+  padding: 2px 0;
+  opacity: 0.9;
+  text-transform: uppercase;
+}
+
+/* Conserver les couleurs pour les températures */
+.max-temp {
+  color: #ff8c00; /* Orange pour les max */
+  font-weight: bold;
+  font-size: 0.8em;
+}
+
+.temp-separator {
+  font-size: 0.65em;
+  margin: 0 2px;
+  opacity: 0.7;
+}
+
+.min-temp {
+  color: #add8e6; /* Bleu clair pour les min */
+  opacity: 0.9;
+  font-size: 0.75em;
+}
+
+/* Icônes de prévision plus petites */
+.forecast-icon {
+  font-size: 0.8em;
+  padding: 2px 0;
 }
 
 /* Media queries pour ajuster selon la taille */
