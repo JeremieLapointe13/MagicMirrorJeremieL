@@ -165,5 +165,5 @@ Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE.md) pour plus
 ---
 
 <div align="center">
-  <p>Développé avec ❤️ à Rivière-du-Loup, Québec.</p>
+  <p>Développé avec à Rivière-du-Loup, Québec par Jérémie Lapointe.</p>
 </div>
