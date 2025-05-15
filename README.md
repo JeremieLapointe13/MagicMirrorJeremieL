@@ -1,7 +1,5 @@
 # MagicMirror de la Rivière-du-Loup
 
-<img src="assets/header.png" alt="MagicMirror: Miroir intelligent pour la maison connectée" width="100%">
-
 **MagicMirror de la Rivière-du-Loup** est une installation personnalisée basée sur la plateforme MagicMirror² avec des fonctionnalités étendues pour le contrôle à distance via mobile et l'intégration de capteurs IoT. Ce projet combine un Raspberry Pi, des capteurs externes et une application mobile Android dédiée pour offrir une expérience de miroir intelligent complète.
 
 ## ✨ Caractéristiques
@@ -64,7 +62,6 @@ Une application Android native a été développée pour :
 - Surveiller la température du système
 - Visualiser la dernière utilisation
 
-<img src="assets/app_screenshot.png" alt="Capture d'écran de l'application mobile" width="300">
 
 ## 📥 Installation et configuration
 
